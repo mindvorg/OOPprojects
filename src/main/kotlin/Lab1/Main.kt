@@ -1,7 +1,7 @@
 package Lab1
 
 fun main() {
-    val addresses2=""
+    val addresses2 = ""
     val addresses = "1.754291, Санкт-Петербург, ул. Космонавтов, д.47\n" +
             "2.563084, Москва, ул. Ленина, д.13\n" +
             "3.687424, Киров, ул. Энгельса, д.64\n" +
@@ -23,22 +23,21 @@ fun main() {
             "19.169130, Владивосток, ул. Шевцова, д.29\n" +
             "20.240555, Киров, ул. Кировская, д.53".trimIndent()
     val listOfAddresses: List<Addresses>? = parseAddresses(addresses)
-    if(listOfAddresses!=null){
-    if (biggestIndex(listOfAddresses) != null)
-    {
-        println("the biggest index is:${biggestIndex(listOfAddresses)}")}
-    if (smallestIndex(listOfAddresses) != null)
-    {
-        println("the smallest index is:${smallestIndex(listOfAddresses)}")}
+    if (listOfAddresses != null) {
+        if (biggestIndex(listOfAddresses) != null) {
+            println("the biggest index is:${biggestIndex(listOfAddresses)}")
+        }
+        if (smallestIndex(listOfAddresses) != null) {
+            println("the smallest index is:${smallestIndex(listOfAddresses)}")
+        }
 
-    if (biggestStreet(listOfAddresses) != null)
-    {
-        println("the biggest street is:${biggestStreet(listOfAddresses)}")}
-    if (smallestStreet(listOfAddresses) != null)
-    {
-        println("the smallest street is:${smallestStreet(listOfAddresses)}")}
-}
-else
-    {
-        println("null list")}
+        if (biggestStreet(listOfAddresses) != null) {
+            println("the biggest street is:${biggestStreet(listOfAddresses)}")
+        }
+        if (smallestStreet(listOfAddresses) != null) {
+            println("the smallest street is:${smallestStreet(listOfAddresses)}")
+        }
+    } else {
+        println("null list")
+    }
 }
