@@ -37,6 +37,7 @@ internal class AdressesKtTest {
            """.trimIndent()
         val listofAddresses = parseAddresses(addresses)
         assertEquals(Lab1.biggestIndex(listofAddresses!!), listofAddresses[0])
+    assertEquals(Lab1.biggestIndex(emptyList()),null)
     }
 
     @Test
@@ -48,7 +49,7 @@ internal class AdressesKtTest {
            """.trimIndent()
         val listofAddresses = parseAddresses(addresses)
         assertEquals(Lab1.smallestIndex(listofAddresses!!), listofAddresses[1])
-
+        assertEquals(Lab1.smallestIndex(emptyList()),null)
     }
 
     @Test
@@ -60,7 +61,7 @@ internal class AdressesKtTest {
            """.trimIndent()
         val listofAddresses = parseAddresses(addresses)
         assertEquals(Lab1.biggestStreet(listofAddresses!!), listofAddresses[0])
-
+        assertEquals(Lab1.biggestStreet(emptyList()),null)
     }
 
     @Test
@@ -72,6 +73,6 @@ internal class AdressesKtTest {
            """.trimIndent()
         val listofAddresses = parseAddresses(addresses)
         assertEquals(Lab1.smallestStreet(listofAddresses!!), listofAddresses[1])
-
+        assertEquals(Lab1.smallestStreet(emptyList()),null)
     }
 }
