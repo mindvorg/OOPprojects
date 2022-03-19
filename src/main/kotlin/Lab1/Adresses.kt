@@ -1,4 +1,4 @@
-package Lab1.Adresses
+package Lab1
 
 
 data class Addresses(val index: Int, val nameCity: String, val nameStreet: String, val house: Int) {}
@@ -30,4 +30,3 @@ fun smallestIndex(addresses: List<Addresses>): Addresses? = addresses.minByOrNul
 fun biggestStreet(addresses: List<Addresses>): Addresses? = addresses.maxByOrNull { it.nameStreet.length }
 
 fun smallestStreet(addresses: List<Addresses>): Addresses? = addresses.minByOrNull { it.nameStreet.length }
-

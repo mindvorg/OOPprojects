@@ -1,7 +1,5 @@
 package Lab1
 
-import Lab1.Adresses.*
-
 fun main() {
     val addresses2=""
     val addresses = "1.754291, Санкт-Петербург, ул. Космонавтов, д.47\n" +
