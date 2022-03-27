@@ -38,7 +38,7 @@ internal class AdressesKtTest {
             Addresses(563084, "Москва", "Ленина", 13),
             Addresses(687424, "Киров", "Энгельса", 64)
         )
-        assertEquals(Lab1.biggestIndex(listofAddresses!!), listofAddresses[0])
+        assertEquals(Lab1.biggestIndex(listofAddresses), listofAddresses[0])
         assertEquals(Lab1.biggestIndex(emptyList()), null)
     }
 
@@ -49,7 +49,7 @@ internal class AdressesKtTest {
             Addresses(563084, "Москва", "Ленина", 13),
             Addresses(687424, "Киров", "Энгельса", 64)
         )
-        assertEquals(Lab1.smallestIndex(listofAddresses!!), listofAddresses[1])
+        assertEquals(Lab1.smallestIndex(listofAddresses), listofAddresses[1])
         assertEquals(Lab1.smallestIndex(emptyList()), null)
     }
 
@@ -60,7 +60,7 @@ internal class AdressesKtTest {
             Addresses(563084, "Москва", "Ленина", 13),
             Addresses(687424, "Киров", "Энгельса", 64)
         )
-        assertEquals(Lab1.biggestStreet(listofAddresses!!), listofAddresses[0])
+        assertEquals(Lab1.biggestStreet(listofAddresses), listofAddresses[0])
         assertEquals(Lab1.biggestStreet(emptyList()), null)
     }
 
@@ -70,8 +70,9 @@ internal class AdressesKtTest {
             Addresses(754291, "Санкт-Петербург", "Космонавтов", 47),
             Addresses(563084, "Москва", "Ленина", 13),
             Addresses(687424, "Киров", "Энгельса", 64)
+
         )
-        assertEquals(Lab1.smallestStreet(listofAddresses!!), listofAddresses[1])
+        assertEquals(Lab1.smallestStreet(listofAddresses), listofAddresses[1])
         assertEquals(Lab1.smallestStreet(emptyList()), null)
     }
 }
