@@ -1,6 +1,5 @@
 package lab1
 
-
 data class Addresses(val index: Int, val nameCity: String, val nameStreet: String, val house: Int) {}
 
 fun parseAddresses(addresses: String): List<Addresses> {
