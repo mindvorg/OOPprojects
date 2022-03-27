@@ -1,11 +1,11 @@
-package Lab1
+package lab1
 
 
 data class Addresses(val index: Int, val nameCity: String, val nameStreet: String, val house: Int) {}
 
-fun parseAddresses(addresses: String): List<Addresses>? {
+fun parseAddresses(addresses: String): List<Addresses> {
     if (addresses.isEmpty()) {
-        return null
+        return emptyList()
     }
     val listOfAddreses = mutableListOf<Addresses>()
     val splitString = addresses.split('\n')

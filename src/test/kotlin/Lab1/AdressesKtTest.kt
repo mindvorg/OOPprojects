@@ -1,9 +1,8 @@
-import Lab1.Addresses
-import Lab1.parseAddresses
+import lab1.Addresses
+import lab1.parseAddresses
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Test
-import kotlin.test.assertNull
+import kotlin.test.assertNotNull
 
 
 internal class AdressesKtTest {
@@ -20,14 +19,12 @@ internal class AdressesKtTest {
             Addresses(563084, "Москва", "Ленина", 13),
             Addresses(687424, "Киров", "Энгельса", 64)
         )
-        val nullAdresses = ""
         val alsoListOfAddresses: List<Addresses> = listOf(
             Addresses(754291, "Санкт-Петербург", "Космонавтов", 47),
             Addresses(563084, "Москва", "Ленина", 13),
             Addresses(687424, "Киров", "Энгельса", 64)
         )
         assertNotNull(parseAddresses(addresses))
-        assertNull(parseAddresses(nullAdresses))
         assertEquals(listofAddresses, alsoListOfAddresses)
     }
 
@@ -38,8 +35,8 @@ internal class AdressesKtTest {
             Addresses(563084, "Москва", "Ленина", 13),
             Addresses(687424, "Киров", "Энгельса", 64)
         )
-        assertEquals(Lab1.biggestIndex(listofAddresses), listofAddresses[0])
-        assertEquals(Lab1.biggestIndex(emptyList()), null)
+        assertEquals(lab1.biggestIndex(listofAddresses), listofAddresses[0])
+        assertEquals(lab1.biggestIndex(emptyList()), null)
     }
 
     @Test
@@ -49,8 +46,8 @@ internal class AdressesKtTest {
             Addresses(563084, "Москва", "Ленина", 13),
             Addresses(687424, "Киров", "Энгельса", 64)
         )
-        assertEquals(Lab1.smallestIndex(listofAddresses), listofAddresses[1])
-        assertEquals(Lab1.smallestIndex(emptyList()), null)
+        assertEquals(lab1.smallestIndex(listofAddresses), listofAddresses[1])
+        assertEquals(lab1.smallestIndex(emptyList()), null)
     }
 
     @Test
@@ -60,8 +57,8 @@ internal class AdressesKtTest {
             Addresses(563084, "Москва", "Ленина", 13),
             Addresses(687424, "Киров", "Энгельса", 64)
         )
-        assertEquals(Lab1.biggestStreet(listofAddresses), listofAddresses[0])
-        assertEquals(Lab1.biggestStreet(emptyList()), null)
+        assertEquals(lab1.biggestStreet(listofAddresses), listofAddresses[0])
+        assertEquals(lab1.biggestStreet(emptyList()), null)
     }
 
     @Test
@@ -72,7 +69,7 @@ internal class AdressesKtTest {
             Addresses(687424, "Киров", "Энгельса", 64)
 
         )
-        assertEquals(Lab1.smallestStreet(listofAddresses), listofAddresses[1])
-        assertEquals(Lab1.smallestStreet(emptyList()), null)
+        assertEquals(lab1.smallestStreet(listofAddresses), listofAddresses[1])
+        assertEquals(lab1.smallestStreet(emptyList()), null)
     }
 }
