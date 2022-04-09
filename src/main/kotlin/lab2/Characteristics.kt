@@ -20,7 +20,7 @@ data class Circle(override val borderColor: Color, override val fillColor: Color
     override fun calcArea(): Double {
         if (radius <= 0) error("radius can not be less 0")
         else {
-            return PI * radius*radius
+            return PI * radius * radius
         }
     }
 }
