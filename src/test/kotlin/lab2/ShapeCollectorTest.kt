@@ -42,7 +42,7 @@ internal class ShapeCollectorTest {
         assertEquals(106.22354123346052, listOfShapes.summOfAreas())
     }
 
-/*
+
     @Test
     fun sortByBorderColor() {
         val listOfShapes = ShapeCollector()
@@ -50,18 +50,22 @@ internal class ShapeCollectorTest {
         listOfShapes.add(Rectangle(Color(), Color(), 5.0, 4.0))
         listOfShapes.add(Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 7.0))
         listOfShapes.add(Triangle(Color(12, 12, 12), Color(213, 19, 255, 75), 5.0, 5.0, 5.0))
-        assertEquals(Rectangle(Color(255, 255, 255, 100), Color(255, 255, 255, 100), 5.0, 4.0),listOfShapes.sortByBorderColor(Color()))
+        val expect=ShapeCollector()
+        expect.add(Rectangle(Color(255, 255, 255, 100), Color(255, 255, 255, 100), 5.0, 4.0))
+        assertEquals(expect.allShapes(),listOfShapes.sortByBorderColor(Color()))
     }
-*/
+
 
     /*   @Test
        fun sortByFillColor() {
        }*/
 
-/*    @Test
+   @Test
     fun allShapes() {
-
-    }*/
+       val listOfShapes = ShapeCollector()
+       listOfShapes.add(Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 5.0))
+       assertEquals(Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 5.0),listOfShapes.allShapes())
+    }
 
     @Test
     fun size() {
@@ -89,6 +93,6 @@ internal class ShapeCollectorTest {
         listOfShapes.add(Triangle(Color(12, 12, 12), Color(213, 19, 255, 75), 5.0, 5.0, 5.0))
         val expect = ShapeCollector()
         expect.add(Triangle(Color(12, 12, 12), Color(213, 19, 255, 75), 5.0, 5.0, 5.0))
-        assertEquals(expect, listOfShapes.sortByName<Triangle>())
+        assertEquals(expect.allShapes(), listOfShapes.sortByName<Triangle>())
     }
 }
