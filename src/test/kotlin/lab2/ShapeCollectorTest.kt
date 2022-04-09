@@ -56,15 +56,24 @@ internal class ShapeCollectorTest {
     }
 
 
-    /*   @Test
-       fun sortByFillColor() {
-       }*/
+    @Test
+    fun sortByFillColor() {
+        val listOfShapes = ShapeCollector()
+        listOfShapes.add(Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 5.0))
+        listOfShapes.add(Rectangle(Color(), Color(), 5.0, 4.0))
+        listOfShapes.add(Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 7.0))
+        listOfShapes.add(Triangle(Color(12, 12, 12), Color(213, 19, 255, 75), 5.0, 5.0, 5.0))
+        val expect = ShapeCollector()
+        expect.add(Rectangle(Color(255, 255, 255, 100), Color(255, 255, 255, 100), 5.0, 4.0))
+        assertEquals(expect.allShapes(), listOfShapes.sortByFillColor(Color()))
+    }
 
     @Test
     fun allShapes() {
         val listOfShapes = ShapeCollector()
         listOfShapes.add(Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 5.0))
-        assertEquals(Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 5.0), listOfShapes.allShapes())
+        val expect = listOf<ColoredShape2d>(Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 5.0))
+        assertEquals(expect, listOfShapes.allShapes())
     }
 
     @Test
@@ -77,13 +86,12 @@ internal class ShapeCollectorTest {
         assertEquals(4, listOfShapes.size())
     }
 
-    /*    @Test
-        fun groupByFillColor() {
-        }
+    /*        @Test
+            fun groupByFillColor() { }
 
-        @Test
-        fun groupByBorderColor() {
-        }*/
+            @Test
+            fun groupByBorderColor() {
+            }*/
     @Test
     fun sortByName() {
         val listOfShapes = ShapeCollector()
