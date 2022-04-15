@@ -33,13 +33,13 @@ internal class ShapeCollectorTest {
     }
 
     @Test
-    fun summOfAreas() {
+    fun sumOfAreas() {
         val listOfShapes = ShapeCollector()
         listOfShapes.add(Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 5.0))
         listOfShapes.add(Rectangle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 5.0, 4.0))
         listOfShapes.add(Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 7.0))
         listOfShapes.add(Triangle(Color(12, 12, 12), Color(213, 19, 255, 75), 5.0, 5.0, 5.0))
-        assertEquals(106.22354123346052, listOfShapes.summOfAreas())
+        assertEquals(106.22354123346052, listOfShapes.sumOfAreas())
     }
 
 
@@ -86,12 +86,32 @@ internal class ShapeCollectorTest {
         assertEquals(4, listOfShapes.size())
     }
 
-    /*        @Test
-            fun groupByFillColor() { }
+    @Test
+    fun groupByFillColor() {
+        val listOfShapes = ShapeCollector()
+        listOfShapes.add(Circle(Color(123, 55, 255, 50), Color(1, 55, 255, 50), 5.0))
+        listOfShapes.add(Rectangle(Color(), Color(), 5.0, 4.0))
+        listOfShapes.add(Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 7.0))
+        listOfShapes.add(Triangle(Color(12, 12, 12), Color(213, 19, 255, 75), 5.0, 5.0, 5.0))
+        val mapShapes = listOfShapes.groupByFillColor()
+        assertEquals(listOf(Circle(Color(123, 55, 255, 50), Color(1, 55, 255, 50), 5.0)),
+            mapShapes[Color(1, 55, 255, 50)])
 
-            @Test
-            fun groupByBorderColor() {
-            }*/
+    }
+
+    @Test
+    fun groupByBorderColor() {
+        val listOfShapes = ShapeCollector()
+        listOfShapes.add(Circle(Color(123, 55, 255, 50), Color(1, 55, 255, 50), 5.0))
+        listOfShapes.add(Rectangle(Color(), Color(), 5.0, 4.0))
+        listOfShapes.add(Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 7.0))
+        listOfShapes.add(Triangle(Color(12, 12, 12), Color(213, 19, 255, 75), 5.0, 5.0, 5.0))
+        val mapShapes = listOfShapes.groupByBorderColor()
+        assertEquals(listOf(Rectangle(Color(), Color(), 5.0, 4.0)),
+            mapShapes[Color()])
+
+    }
+
     @Test
     fun sortByName() {
         val listOfShapes = ShapeCollector()

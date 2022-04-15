@@ -14,7 +14,7 @@ class ShapeCollector {
         return listOfShapes.minByOrNull { it.calcArea() }
     }
 
-    fun summOfAreas(): Double {
+    fun sumOfAreas(): Double {
         return listOfShapes.sumOf { it.calcArea() }
     }
 
