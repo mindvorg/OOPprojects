@@ -30,32 +30,34 @@ class ServiceFunctions : ContactsService {
         return people
     }
 
+    override fun findPerson(firstName: String, secondName: String): List<Person> {
+        return people.keys.filter { firstName in it.firstName && secondName in it.secondName }
+    }
+
     override fun getAllPersons(): List<Person> {
-        //return buildList { people.forEach { it.key } }
         return people.keys.toList()
     }
 
     override fun getPersonEmails(person: Person): List<Email> {
-        //return buildList { people[person]?.forEach{if(it is Email) this.add(it)} }
-        return  people[person]?. filterIsInstance<Email>()!!.toList()
+
+        return people[person]?.filterIsInstance<Email>()!!.toList()
     }
 
     override fun getPersonLinks(person: Person): List<Url> {
-        return  people[person]?. filterIsInstance<Url>()!!.toList()
+        return people[person]?.filterIsInstance<Url>()!!.toList()
     }
 
     override fun getPersonContacts(person: Person): List<Contact> {
-        return  people[person]?.toList()!!
+        return people[person]?.toList()!!
     }
 
     override fun getPersonPhones(person: Person): List<Phone> {
-        return  people[person]?. filterIsInstance<Phone>()!!.toList()
+        return people[person]?.filterIsInstance<Phone>()!!.toList()
     }
 
 
-    override fun removeAddress(person: Person,address: Address) {
-/*        people[person]?.remove(Address)
-        people[person]?.forEach { people[person]?.remove(Address) }*/
+    override fun removeAddress(person: Person, address: Address) {
+
         people[person]?.remove(address)
     }
 
@@ -64,16 +66,16 @@ class ServiceFunctions : ContactsService {
     }
 
 
-    override fun removeEmail(person: Person,email: Email) {
-        // people[person]?.remove(Email)
+    override fun removeEmail(person: Person, email: Email) {
+
         people[person]?.remove(email)
     }
 
-    override fun removeLink(person: Person,url: Url) {
+    override fun removeLink(person: Person, url: Url) {
         people[person]?.remove(url)
     }
 
-    override fun removePhone(person: Person,phone: Phone) {
+    override fun removePhone(person: Person, phone: Phone) {
         people[person]?.remove(phone)
     }
 
