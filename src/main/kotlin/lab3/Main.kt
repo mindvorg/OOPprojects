@@ -1,6 +1,5 @@
 package lab3
 fun main() {
-println("queres lab3?")
     val service=ServiceFunctions()
     val person1=Contact.Person(firstName = "Ivan", secondName = "Ivanov")
     val data1=Contact.Url("vk","vk.com/paveldurov")
