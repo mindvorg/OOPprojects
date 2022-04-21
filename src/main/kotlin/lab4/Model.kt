@@ -1,3 +1,4 @@
+
 package lab4
 
 import java.io.File
@@ -19,8 +20,14 @@ private val lengthMap = 23
 private val witdhMap = 73
 private val firstPosition = Pair(22, 2)
 
-class Model {
-    var _map = readMap().toMutableMap()
+open class PositionPerson()
+{
+    val xCord:Int= firstPosition.first
+    val yCord:Int= firstPosition.second
+
+}
+class Model(): PositionPerson() {
+    private var _map = readMap().toMutableMap()
     fun out() {
         for (i in 0 until lengthMap) {
             for (j in 0 until witdhMap) {
@@ -29,12 +36,21 @@ class Model {
             println()
         }
     }
+    fun set(x:Int,y:Int,value: Char)
+    {
+        _map[Pair(x,y)]=value
+    }
 
-/*    operator fun set(pair: Pair< A: Int,  B: Int>, value: Char) {
-        _map[(Pair<A,B>)]=value
-    }*/
+    fun doMove(x:Int,y:Int){
+        require(x in 0 until lengthMap) { "Wrong row" }
+        require(y in 0 until witdhMap) { "Wrong column" }
+        if(checkWin(Pair(xCord,yCord))==1)
+        {println("gg")} }
+
+    private fun checkWin(pair: Pair<Int, Int>): Any {
 
 
+    }
 }
 
 fun readMap(): Map<Pair<Int, Int>, Char> {

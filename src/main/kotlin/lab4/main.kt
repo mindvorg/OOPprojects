@@ -1,5 +1,4 @@
 package lab4
-import java.io.File
 
 /*
 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa   a",
@@ -28,20 +27,22 @@ import java.io.File
 */
 fun main(){
     println("queres lab 4?")
-val input= readInput().toMutableMap()
+/*val input= readInput().toMutableMap()
 println(input)
     println("as=${input[Pair(0,0)]}")
     input[Pair(0,0)]='2'
     println("as=${input[Pair(0,0)]}")
-    println(input)
+    println(input)*/
 
     val test=Model()
-    //test.out()
-    //test[Pair(23,2)]='F'
-    test._map[Pair(22,0)]='F'
+    test.out()
+    test.set(22,2,'~')
+    test.out()
+    test.set(0,72,'@')
     test.out()
 }
 
+/*
 fun readInput():Map<Pair<Int,Int>,Char> {
     val input = File("map.txt")
         .readLines()
@@ -56,4 +57,4 @@ fun readInput():Map<Pair<Int,Int>,Char> {
         .toMap()
 return input
 
-}
+}*/
