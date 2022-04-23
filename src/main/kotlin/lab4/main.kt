@@ -35,11 +35,52 @@ println(input)
     println(input)*/
 
     val test=Model()
-    test.out()
     test.set(22,2,'~')
-    test.out()
-    test.set(0,72,'@')
-    test.out()
+/*    test.printout()
+
+    test.printout()
+    println("1")
+    test.set(0,70,'@')
+    test.printout()
+    println("2")
+    test.doMove(21,2)
+    println("3")
+    test.printout()
+    println("4")
+    test.doMove(21,3)
+    println("5")
+    test.printout()
+  *//*  test.doMove(21,4)
+    println()                       it's throw error and it's ok
+    test.printout()*//*
+    test.doMove(22,3)
+    println()
+    test.printout()
+    test.doMove(21,3)
+    println()
+    test.printout()
+    println()
+    println()
+    println()
+    println()*/
+/*    SwingUtilities.invokeLater {
+        val mazeui=
+    }*/
+
+
+    println("start\n\n\n")
+    for (i in 1..6) {
+        val maze = Controller(test)
+    }
+  /*  var x=0
+    var y=0
+    val input = readln().toCharArray()
+    println("11111111111=$input")
+
+    val whn= input[0].toInt()
+    println("11111111111=$whn")
+*/
+
 }
 
 /*
