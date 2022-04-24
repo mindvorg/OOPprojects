@@ -2,13 +2,6 @@ package lab4
 
 import java.io.File
 
-/*enum class Cell(private val textValue: String) {
-    A("a"),
-    EMPTY(" "),
-    WORM("~");
-
-    override fun toString(): String = textValue
-}*/
 
 enum class State {
     WIN,
