@@ -68,6 +68,7 @@ class Model() : PositionPerson() {
                 _map.set(Pair(xCord,yCord),' ')
                 xCord = x
                 yCord = y
+                pos=Pair(xCord,yCord)
                 _map.set(Pair(xCord,yCord),'~')
             } else {
                 error("u can't go here its wall")
