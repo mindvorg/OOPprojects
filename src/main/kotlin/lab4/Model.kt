@@ -1,40 +1,43 @@
 package lab4
+
 import java.io.File
 
-enum class Cell(private val textValue: String) {
+/*enum class Cell(private val textValue: String) {
     A("a"),
     EMPTY(" "),
     WORM("~");
 
     override fun toString(): String = textValue
+}*/
+
+enum class State {
+    WIN,
+    NOTWIN;
 }
 
-enum class State(val textValue: String) {
-    WIN("U win"),
-    NOTWIN("not win yet");
 
-}
-
-
- val lengthMap = 23
- val witdhMap = 73
+const val lengthMap = 23
+const val widthMap = 73
 private val firstPosition = Pair(22, 2)
 private val finishPosition = Pair(0, 70)
+private val finishPosition2 = Pair(0, 69)
+private val finishPosition3 = Pair(0, 71)
 
-open class PositionPerson() {
+open class PositionPerson {
     var xCord: Int = firstPosition.first
     var yCord: Int = firstPosition.second
 
 }
+
 interface ModelChangeListener {
     fun onModelChanged()
 }
 
-class Model() : PositionPerson() {
+class Model : PositionPerson() {
     private var _map = readMap().toMutableMap()
-    var pos=Pair(xCord,yCord)
-    var state: State = State.NOTWIN
-        private set
+    var pos = Pair(xCord, yCord)
+    private var state: State = State.NOTWIN
+
     private val listeners: MutableSet<ModelChangeListener> = mutableSetOf()
 
     fun addModelChangeListener(listener: ModelChangeListener) {
@@ -47,7 +50,7 @@ class Model() : PositionPerson() {
 
     fun printout() {
         for (i in 0 until lengthMap) {
-            for (j in 0 until witdhMap) {
+            for (j in 0 until widthMap) {
                 print(_map[Pair(i, j)])
             }
             println()
@@ -55,21 +58,20 @@ class Model() : PositionPerson() {
     }
 
 
-
     fun doMove(x: Int, y: Int) {
-        require(x in 0 until lengthMap) { "Wrong row" }
-        require(y in 0 until witdhMap) { "Wrong column" }
+        require(x in 0 until lengthMap) { "u can't go here its wall" }
+        require(y in 0 until widthMap) { "u can't go here its wall" }
 
-        if (checkWin(pos.first,pos.second)) {
+        if (checkWin(pos.first, pos.second)) {
             println("gg")
-            state=State.WIN
+            state = State.WIN
         } else {
             if (_map[Pair(x, y)] == ' ') {
-                _map.set(Pair(xCord,yCord),' ')
+                _map[Pair(xCord, yCord)] = ' '
                 xCord = x
                 yCord = y
-                pos=Pair(xCord,yCord)
-                _map.set(Pair(xCord,yCord),'~')
+                pos = Pair(xCord, yCord)
+                _map[Pair(xCord, yCord)] = '~'
             } else {
                 error("u can't go here its wall")
             }
@@ -77,22 +79,24 @@ class Model() : PositionPerson() {
         notifyListeners()
         printout()
     }
+
     fun set(x: Int, y: Int, value: Char) {
         _map[Pair(x, y)] = value
     }
+
     fun checkWin(x: Int, y: Int): Boolean {
-        return Pair(x, y) == finishPosition
+        return Pair(x, y) == finishPosition || Pair(x, y) == finishPosition2 || Pair(x, y) == finishPosition3
     }
 
 
+    private fun notifyListeners() {
+        listeners.forEach { it.onModelChanged() }
+    }
 
-private fun notifyListeners() {
-    listeners.forEach { it.onModelChanged() }
 }
 
-}
 fun readMap(): Map<Pair<Int, Int>, Char> {
-    val input = File("map.txt")
+    val input = File("map2.txt")
         .readLines()
         .withIndex()
         .flatMap { indexedValue ->

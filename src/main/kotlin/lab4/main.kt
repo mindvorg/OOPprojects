@@ -35,7 +35,7 @@ println(input)
     println(input)*/
 
     val test=Model()
-    test.set(22,2,'~')
+ /*   test.set(22,2,'~')*/
 /*    test.printout()
 
     test.printout()
@@ -69,9 +69,12 @@ println(input)
 
 
     println("start\n\n\n")
-    for (i in 1..6) {
+/*    while(!test.checkWin(test.pos.first,test.pos.second)) {
         val maze = Controller(test)
-    }
+        println("x=${test.pos.first} y=${test.pos.second}")
+        println("x=${test.xCord} y=${test.yCord}")
+    }*/
+   Controller(test)
   /*  var x=0
     var y=0
     val input = readln().toCharArray()
