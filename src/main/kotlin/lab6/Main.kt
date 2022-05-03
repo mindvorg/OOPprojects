@@ -17,7 +17,7 @@ fun main() {
     println(test6enc)
 
 
-    val url = "C:\\Users\\dsgor\\IdeaProjects\\OOP\\src\\main\\kotlin\\lab6\\testLab6"
+    val url = "C:\\Users\\dsgor\\IdeaProjects\\OOP\\src\\main\\kotlin\\lab6\\testLab6.json"
 
     test6.writeJson(url, test6.encodeJson(listOfShapes))
 
