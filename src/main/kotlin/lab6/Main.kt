@@ -13,13 +13,13 @@ fun main() {
 
 
     val test6 = SerializationAndDeserialization()
-
-    println(test6.encodeJson(listOfShapes))
+    val test6enc = test6.encodeJson(listOfShapes)
+    println(test6enc)
 
 
     val url = "C:\\Users\\dsgor\\IdeaProjects\\OOP\\src\\main\\kotlin\\lab6\\testLab6"
 
     test6.writeJson(url, test6.encodeJson(listOfShapes))
 
-
+    println("check that this is equal:${listOfShapes.allShapes() == test6.decodeJson(test6enc).allShapes()}")
 }
