@@ -85,7 +85,7 @@ class ServiceFunctions : ContactsService {
 
 
     override fun removeContacts(person: Person) {
-        people.forEach { people.remove(person) }
+         people.remove(person)
     }
 
 }

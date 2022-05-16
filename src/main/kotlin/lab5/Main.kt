@@ -1,5 +1,5 @@
 package lab5
-
+import lab2.*
 fun main() {
     val fig1=Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 5.0)
     val fig2=Rectangle(Color(), Color(), 5.0, 4.0)

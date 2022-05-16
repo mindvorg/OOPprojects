@@ -1,11 +1,11 @@
 package lab6
-
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.modules.SerializersModule
 import kotlinx.serialization.modules.polymorphic
 import kotlinx.serialization.modules.subclass
+import lab2.*
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
@@ -23,16 +23,16 @@ private val json = Json {
 }
 
 class SerializationAndDeserialization {
-    fun encodeJson(input: ShapeCollector): String {
+    fun encodeJson(input: List<ColoredShape2d>): String {
         return json.encodeToString(input)
-    }
-
-    fun decodeJson(output: String): ShapeCollector {
-        return json.decodeFromString(output)
     }
 
     fun openJson(url: String): String {
         return File(url).readText()
+    }
+
+    fun decodeJson(output: String):  List<ColoredShape2d> {
+        return json.decodeFromString(output)
     }
 
     fun writeJson(url: String, text: String) {

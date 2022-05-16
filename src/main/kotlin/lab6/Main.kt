@@ -1,7 +1,7 @@
 package lab6
-
+import lab2.*
 fun main() {
-    val listOfShapes = ShapeCollector()
+    val listOfShapes = ShapeCollector<ColoredShape2d>()
     val fig1 = Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 5.0)
     val fig2 = Rectangle(Color(), Color(), 5.0, 4.0)
     val fig3 = Circle(Color(123, 55, 255, 50), Color(123, 55, 255, 50), 7.0)
@@ -13,13 +13,13 @@ fun main() {
 
 
     val test6 = SerializationAndDeserialization()
-    val test6enc = test6.encodeJson(listOfShapes)
+    val test6enc = test6.encodeJson(listOfShapes.allShapes())
     println(test6enc)
 
 
     val url = "C:\\Users\\dsgor\\IdeaProjects\\OOP\\src\\main\\kotlin\\lab6\\testLab6.json"
 
-    test6.writeJson(url, test6.encodeJson(listOfShapes))
+    test6.writeJson(url, test6.encodeJson(listOfShapes.allShapes()))
 
-    println("check that this is equal:${listOfShapes.allShapes() == test6.decodeJson(test6enc).allShapes()}")
+    println("check that this is equal:${listOfShapes.allShapes() == test6.decodeJson(test6enc)}")
 }
