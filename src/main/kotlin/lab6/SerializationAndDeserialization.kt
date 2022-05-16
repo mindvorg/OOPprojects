@@ -8,7 +8,6 @@ import kotlinx.serialization.modules.subclass
 import lab2.*
 import java.io.File
 import java.io.FileWriter
-import java.io.IOException
 
 private val json = Json {
     prettyPrint = true
@@ -27,7 +26,7 @@ class SerializationAndDeserialization {
         return json.encodeToString(input)
     }
 
-    fun openJson(url: String): String {
+    fun readFile(url: String): String {
         return File(url).readText()
     }
 
@@ -36,13 +35,8 @@ class SerializationAndDeserialization {
     }
 
     fun writeJson(url: String, text: String) {
-        File(url).printWriter().println(text)
-        try {
             FileWriter(url).buffered().use { writer ->
                 writer.write(text)
             }
-        } catch (e: IOException) {
-            // handle
-        }
     }
 }
