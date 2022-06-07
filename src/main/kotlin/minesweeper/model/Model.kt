@@ -22,7 +22,7 @@ enum class CellData {
 
 open class Cell(var cell: CellData)
 
-class OpenedCell(var number: Int) : Cell(CellData.OPENEDC)
+class OpenedCell(var number: Int) : Cell(OPENEDC)
 
 enum class State(val textValue: String) {
     LOSE("u lose, game finished"),
@@ -52,7 +52,7 @@ class Model(private val rows: Int, private val cols: Int, private var mines: Int
     var minePosition: MutableList<Pair<Int, Int>> = MutableList(0) { Pair(0, 0) }
     private var minesLeft = mines
     private var flagsLeft = mines
-    private var movesLeft = cols * rows// need to understand first move(on first move u can't open mine
+    var movesLeft = cols * rows// need to understand first move(on first move u can't open mine
     var clickMode = ClickMode.OPENING
 
     var state = State.IN
@@ -101,7 +101,7 @@ class Model(private val rows: Int, private val cols: Int, private var mines: Int
         }
     }
 
-    private fun replaceMine(row: Int, col: Int) {//replace mine if it spawn under the mouse in the first move
+    private fun replaceMine(row: Int, col: Int) {//replace mine if it spawns under the mouse in the first move
         for (i in 0 until rows) {
             for (j in 0 until cols) {
                 if (dataBoard[i][j].cell == OPENEDC) {
@@ -109,6 +109,7 @@ class Model(private val rows: Int, private val cols: Int, private var mines: Int
                     dataBoard[row][col].cell = OPENEDC
                     minePosition.remove(Pair(row, col))
                     minePosition.add((Pair(i, j)))
+                    return
                 }
             }
         }
@@ -119,7 +120,7 @@ class Model(private val rows: Int, private val cols: Int, private var mines: Int
     }
 
     fun isMine(row: Int, col: Int): Boolean {
-        return board[row][col].cell == CellData.MINE
+        return board[row][col].cell == MINE
     }
 
 
@@ -190,14 +191,14 @@ class Model(private val rows: Int, private val cols: Int, private var mines: Int
         //----------- 6th Neighbour (North-West) ------------
         // Only process this cell if this is a valid one
         if (isValid(row - 1, col - 1)) {
-            if (board[row - 1][col + 1].cell == cell)
+            if (board[row - 1][col - 1].cell == cell)
                 count++
         }
 
         //----------- 7th Neighbour (South-East) ------------
         // Only process this cell if this is a valid one
         if (isValid(row + 1, col + 1)) {
-            if (board[row - 1][col + 1].cell == cell)
+            if (board[row + 1][col + 1].cell == cell)
                 count++
         }
 
@@ -232,7 +233,7 @@ class Model(private val rows: Int, private val cols: Int, private var mines: Int
     }
 
     private fun revealCell(row: Int, col: Int) {
-        if (dataBoard[row][col].cell == OPENEDC) return//nothing to do
+        if (board[row][col].cell == OPENEDC) return//nothing to do
         if (dataBoard[row][col].cell == MINE) {//opened wrong cell
             state = State.LOSE
             board[row][col].cell = MINE
@@ -240,46 +241,79 @@ class Model(private val rows: Int, private val cols: Int, private var mines: Int
             return
         }
         movesLeft--
+        //println("countAdjacentMines")
         val mine = countAdjacentMines(row, col, dataBoard, MINE)
+        //println("OpenedCell")
         val newCell = OpenedCell(mine)
         board[row][col] = newCell
-        printBoard()
+        // printBoard()
         if (mine == 0) {//opened empty cell and need to open more around
+            //  println("revealAdjacentCells")
             revealAdjacentCells(row, col)
         }
     }
 
-    private fun printBoard() {
-        var res=""
-        board.forEach { it->it.forEach {
+    fun printBoard() {
+        var res = ""
+        board.forEach { it ->
+            it.forEach {
 
-            if (it.cell == FLAG) res += "P"
-            if (it.cell == MINE) res += "*"
-            if (it.cell == OPENEDC) res += (it as OpenedCell).number
-            if (it.cell == CLOSEDC) res += "_"
+                if (it.cell == FLAG) res += "P"
+                if (it.cell == MINE) res += "*"
+                if (it.cell == OPENEDC) res += (it as OpenedCell).number
+                if (it.cell == CLOSEDC) res += "_"
+            }
         }
+        //println(res)
+        for (i in 0..res.length - 1) {
+            if (i % 9 == 0) println()
+            print(res[i] + " ")
+
+        }
+    }
+
+    fun printDataBoard() {
+        var res = ""
+        dataBoard.forEach { it ->
+            it.forEach {
+
+                if (it.cell == FLAG) res += "P"
+                if (it.cell == MINE) res += "*"
+                if (it.cell == OPENEDC) res += (it as OpenedCell).number
+                if (it.cell == CLOSEDC) res += "_"
+            }
+        }
+        //println(res)
+        for (i in res.indices) {
+            if (i % 9 == 0) println()
+            print(res[i] + " ")
+
         }
     }
 
 
-    fun doMove(cols: Int, rows: Int) {
+    fun doMove(col: Int, row: Int) {
         require(state !in GameFinished) { "Game finished" }
-        require(isValid(rows, cols)) { "wrong move" }
+        require(isValid(row, col)) { "wrong move" }
         //val c=
-        val gameCell = board[rows][cols].cell
-        if ((gameCell == OPENEDC) && (board[rows][cols] as OpenedCell).number != 0) {
-            autoRevealAdjacentFields(rows, cols)
+        val gameCell = board[row][col].cell
+        if ((gameCell == OPENEDC) && (board[row][col] as OpenedCell).number != 0) {
+            //  println("\nautoReveal")
+            autoRevealAdjacentFields(row, col)
         } else {
             if (clickMode == ClickMode.OPENING) {
-                if ((movesLeft == rows * cols) && (dataBoard[rows][cols].cell == MINE)) {
-                    replaceMine(rows, cols)
-                    revealCell(rows, cols)
+                //    println("\n opening")
+                if ((movesLeft == rows * cols) && (dataBoard[row][col].cell == MINE)) {
+                    //      println("\n first opening")
+                    replaceMine(row, col)
+                    revealCell(row, col)
                 } else if (gameCell == CLOSEDC) {
-                    revealCell(rows, cols)
+                    //    println("\n not first opening")
+                    revealCell(row, col)
                 }
             }
             if (clickMode == ClickMode.FLAGGED) {
-                flaggedCell(rows, cols)
+                flaggedCell(row, col)
             }
         }
     }
@@ -289,9 +323,10 @@ class Model(private val rows: Int, private val cols: Int, private var mines: Int
         if (cell == FLAG) {//to delete set earlier flag
             board[rows][cols].cell = FLAG
             minesLeft++
-        }
-        if (dataBoard[rows][cols].cell == MINE) {
-            movesLeft++
+
+            if (dataBoard[rows][cols].cell == MINE) {
+                movesLeft++
+            }
         } else {
             if (cell == CLOSEDC) {//set new flag
                 board[rows][cols].cell = FLAG
