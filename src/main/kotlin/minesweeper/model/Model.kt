@@ -13,11 +13,11 @@ enum class ClickMode {
     FLAGGED
 }
 
-enum class CellData {
-    MINE,
-    FLAG,
-    CLOSEDC,//closed filed
-    OPENEDC,// open filed with number of mines around or empty
+enum class CellData(private val textValue: String) {
+    MINE("*"),
+    FLAG("P"),
+    CLOSEDC("_"),//closed filed
+    OPENEDC(" "),// open filed with number of mines around or empty
 }
 
 open class Cell(var cell: CellData)
