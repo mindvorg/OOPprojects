@@ -1,10 +1,7 @@
 package minesweeper.view
 
+import minesweeper.*
 import minesweeper.CellData.*
-import minesweeper.GameFinished
-import minesweeper.Model
-import minesweeper.ModelChangeListener
-import minesweeper.OpenedCell
 import java.awt.*
 import javax.swing.*
 
@@ -22,13 +19,19 @@ class MineSweeperUI : JFrame("Mine sweeper"), ModelChangeListener {
     // val iconRestart:Icon= ImageIcon("C:\\Users\\dsgor\\IdeaProjects\\OOP\\src\\main\\resources\\images\\smail.png")
     val mine: Image =
         ImageIcon("src\\main\\resources\\images\\mine.png").image.getScaledInstance(60, 60, Image.SCALE_SMOOTH)
+
     //val restart: Icon = ImageIcon("src\\main\\resources\\images\\smile.png")
     val imageRestart: Image =
         ImageIcon("src\\main\\resources\\images\\smile.png").image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
-   // val imageFlag:Image=ImageIcon
-   // val imageMine:Image
+    val imageFlag: Image =
+        ImageIcon("src\\main\\resources\\images\\flag.png").image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
+    val imageMine: Image =
+        ImageIcon("src\\main\\resources\\images\\mine.png").image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
     val iconMine: Icon = ImageIcon("src\\main\\resources\\images\\mine.png")
-
+    val imageBlank:Image=
+        ImageIcon("src\\main\\resources\\images\\blank.png").image.getScaledInstance(30,30,Image.SCALE_SMOOTH)
+    val imageExMine:Image=
+        ImageIcon("src\\main\\resources\\images\\explodemine.png").image.getScaledInstance(30,30,Image.SCALE_SMOOTH)
 
     private fun createTopPanel(): JPanel {
         val topPanel = JPanel()
@@ -48,6 +51,8 @@ class MineSweeperUI : JFrame("Mine sweeper"), ModelChangeListener {
             add(createBoardPanel(), BorderLayout.CENTER)
             val restart = createRestartButton()
             val topPanel = createTopPanel()
+
+            topPanel.add(createSwitchButton())
             topPanel.add(restart)
             topPanel.add(minesIndicator())
             //add(restart.add(JLabel(ImageIcon(textures.b))), BorderLayout.SOUTH)
@@ -58,13 +63,27 @@ class MineSweeperUI : JFrame("Mine sweeper"), ModelChangeListener {
         resubscribe()
     }
 
-    private  fun createSwitchButton():JButton
-    {
-        val switchButton=JButton().apply {
-            icon=
+    private fun createSwitchButton(): JButton {
+        val switchButton = JButton().apply {
+            icon = when (gameModel.clickMode) {
+                ClickMode.OPENING -> ImageIcon(imageMine)
+                ClickMode.FLAGGED -> ImageIcon(imageFlag)
+            }
+            addActionListener {
+                gameModel.switchMode()
+                icon = when (gameModel.clickMode) {
+                    ClickMode.OPENING -> ImageIcon(imageMine)
+                    ClickMode.FLAGGED -> ImageIcon(imageFlag)
+                }
+            }
+            background = Color.LIGHT_GRAY
+            preferredSize = Dimension(30, 30)
+            minimumSize = Dimension(30, 30)
+            maximumSize = Dimension(30, 30)
         }
         return switchButton
     }
+
     private fun createRestartButton(): Component {
         val restartButton = JButton().apply {
             icon = ImageIcon(imageRestart)
@@ -84,9 +103,9 @@ class MineSweeperUI : JFrame("Mine sweeper"), ModelChangeListener {
                     resubscribe()
                 }
             }
-                preferredSize = Dimension(30, 30)
-                minimumSize = Dimension(30, 30)
-                maximumSize = Dimension(30, 30)
+            preferredSize = Dimension(30, 30)
+            minimumSize = Dimension(30, 30)
+            maximumSize = Dimension(30, 30)
         }
         return restartButton
     }
@@ -94,8 +113,8 @@ class MineSweeperUI : JFrame("Mine sweeper"), ModelChangeListener {
     private fun minesIndicator(): JLabel {
         val minesInd = JLabel().apply {
             updateFont(this, 20F)
-            text =mines.toString()
-            isOpaque=true
+            text = mines.toString()
+            isOpaque = true
             foreground = Color.BLACK
             background = Color.LIGHT_GRAY
             preferredSize = Dimension(30, 30)
@@ -134,13 +153,13 @@ class MineSweeperUI : JFrame("Mine sweeper"), ModelChangeListener {
         updateGameUI()
     }
 
-    private fun updateGameUI() {
+    private fun updateGameUi() {
         val state = gameModel.state
         statusLabel.text = state.textValue
         for ((i, buttonRow) in buttons.withIndex()) {
             for ((j, button) in buttonRow.withIndex()) {
                 val cell = gameModel.board[i][j]
-                //button.text = cell.toString()
+                //button.text = (gameModel.board[i][j] as OpenedCell).number.toString()
                 button.isEnabled = cell.cell == CLOSEDC && state !in GameFinished
 
                 button.foreground = when (cell.cell) {
@@ -153,8 +172,9 @@ class MineSweeperUI : JFrame("Mine sweeper"), ModelChangeListener {
         }
     }
 
-    private fun updateGameui() {
+    private fun updateGameUI() {
         val state = gameModel.state
+        statusLabel.text = state.textValue
         for ((i, buttonRow) in buttons.withIndex()) {
             for ((j, button) in buttonRow.withIndex()) {
                 val cell = gameModel.board[i][j]
@@ -162,18 +182,20 @@ class MineSweeperUI : JFrame("Mine sweeper"), ModelChangeListener {
 
                 when (cell.cell) {
                     MINE -> {
-                        button.apply { iconMine }
+                        button.apply { imageMine }
                     }
                     OPENEDC -> {
                         val open: OpenedCell = cell as OpenedCell
                         if (open.number == 0) {
-                            button.icon = iconMine
+                              imageBlank
                         } else {
-
+                            button.apply {
+                            text=open.number.toString()
+                            }
                         }
                     }
                     CLOSEDC -> {}
-                    FLAG -> {}
+                    FLAG -> {button.apply { imageFlag }}
                 }
 
             }
@@ -196,11 +218,7 @@ class MineSweeperUI : JFrame("Mine sweeper"), ModelChangeListener {
                     gameModel.printBoard()
                     println()
                     gameModel.printDataBoard()
-
                 }
-
-
-
                 updateGameUI()
                 buttonsRow.add(cellButton)
                 gamePanel.add(cellButton)

@@ -316,6 +316,9 @@ class Model(private val rows: Int, private val cols: Int, private var mines: Int
                 flaggedCell(row, col)
             }
         }
+    if(movesLeft==0)
+    {state=State.WIN}
+        notifyListeners()
     }
 
     private fun flaggedCell(rows: Int, cols: Int) {

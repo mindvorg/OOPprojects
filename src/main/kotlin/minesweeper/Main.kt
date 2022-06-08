@@ -6,7 +6,6 @@ import javax.swing.SwingUtilities
 fun main() {
 
 
-
     SwingUtilities.invokeLater {
         val mineSweeperUI = MineSweeperUI()
         mineSweeperUI.isVisible = true
@@ -16,8 +15,8 @@ fun main() {
 //rog zephrrus m16 gu603hr-k8013t
 
 
-
-    val game=Model(9,9,10)
+/*
+    val game=Model(2,2,1)
     game.printBoard()
     println("\n and data is")
     game.printDataBoard()
@@ -42,6 +41,7 @@ fun main() {
     game.printBoard()
     println("\n and data is")
 
+*/
 
     // println ("asd")
 }
