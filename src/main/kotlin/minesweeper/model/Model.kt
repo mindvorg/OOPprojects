@@ -35,6 +35,7 @@ val GameFinished = setOf(State.WIN, State.LOSE)
 interface ModelChangeListener {
     fun onModelChanged()
 }
+
 class Model(private val rows: Int, private val cols: Int, private var mines: Int) {
 
     private val listeners: MutableSet<ModelChangeListener> = mutableSetOf()
@@ -312,8 +313,9 @@ class Model(private val rows: Int, private val cols: Int, private var mines: Int
                 flaggedCell(row, col)
             }
         }
-    if(movesLeft==0)
-    {state=State.WIN}
+        if (movesLeft == 0) {
+            state = State.WIN
+        }
         notifyListeners()
     }
 
@@ -336,7 +338,6 @@ class Model(private val rows: Int, private val cols: Int, private var mines: Int
             }
         }
     }
-
 
 
 }
