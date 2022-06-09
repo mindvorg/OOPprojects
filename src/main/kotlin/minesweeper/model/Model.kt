@@ -35,10 +35,6 @@ val GameFinished = setOf(State.WIN, State.LOSE)
 interface ModelChangeListener {
     fun onModelChanged()
 }
-
-private const val MAXSIDE: Int = 25
-private const val MAXMINES = 99
-
 class Model(private val rows: Int, private val cols: Int, private var mines: Int) {
 
     private val listeners: MutableSet<ModelChangeListener> = mutableSetOf()
@@ -265,7 +261,7 @@ class Model(private val rows: Int, private val cols: Int, private var mines: Int
             }
         }
         //println(res)
-        for (i in 0..res.length - 1) {
+        for (i in res.indices) {
             if (i % 9 == 0) println()
             print(res[i] + " ")
 
@@ -341,12 +337,6 @@ class Model(private val rows: Int, private val cols: Int, private var mines: Int
         }
     }
 
-    private fun checkWin(): Boolean {
-        return true
-    }
 
-    private fun checkLose(): Boolean {
-        return true
-    }
 
 }

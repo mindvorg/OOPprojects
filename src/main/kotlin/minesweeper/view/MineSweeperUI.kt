@@ -9,29 +9,26 @@ import javax.swing.*
 private const val GAP = 10
 private const val rows = 9
 private const val cols = 9
-private const val mines = 4
+private const val mines = 10
 
 class MineSweeperUI : JFrame("Mine sweeper"), ModelChangeListener {
     private var gameModel: Model = Model(rows, cols, mines)
     private val statusLabel = JLabel("Status", JLabel.CENTER)
     private val buttons = mutableListOf<MutableList<JButton>>()
 
-    // val iconRestart:Icon= ImageIcon("C:\\Users\\dsgor\\IdeaProjects\\OOP\\src\\main\\resources\\images\\smail.png")
-    val mine: Image =
-        ImageIcon("src\\main\\resources\\images\\mine.png").image.getScaledInstance(60, 60, Image.SCALE_SMOOTH)
-
-    //val restart: Icon = ImageIcon("src\\main\\resources\\images\\smile.png")
     val imageRestart: Image =
         ImageIcon("src\\main\\resources\\images\\smile.png").image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
     val imageFlag: Image =
         ImageIcon("src\\main\\resources\\images\\flag.png").image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
+    val imageWrongFlag: Image =
+        ImageIcon("src\\main\\resources\\images\\nomine.png").image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
     val imageMine: Image =
         ImageIcon("src\\main\\resources\\images\\mine.png").image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
     val iconMine: Icon = ImageIcon("src\\main\\resources\\images\\mine.png")
-    val imageBlank:Image=
-        ImageIcon("src\\main\\resources\\images\\blank.png").image.getScaledInstance(30,30,Image.SCALE_SMOOTH)
-    val imageExMine:Image=
-        ImageIcon("src\\main\\resources\\images\\explodemine.png").image.getScaledInstance(30,30,Image.SCALE_SMOOTH)
+    val imageBlank: Image =
+        ImageIcon("src\\main\\resources\\images\\blank.png").image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
+    val imageExMine: Image =
+        ImageIcon("src\\main\\resources\\images\\explodemine.png").image.getScaledInstance(30, 30, Image.SCALE_SMOOTH)
 
     private fun createTopPanel(): JPanel {
         val topPanel = JPanel()
@@ -124,23 +121,6 @@ class MineSweeperUI : JFrame("Mine sweeper"), ModelChangeListener {
         return minesInd
     }
 
-    /* private fun createRestartButton():JButton
-     {
-         val restartButton=JButton().apply {
-             icon=ImageIcon(restart.getScaledInstance(60,60,Image.SCALE_SMOOTH))
-             background = Color.LIGHT_GRAY
-         addActionListener {
-             if(gameModel.movesLeft!=gameModel.size)
-             {val dialog=JOptionPane.showConfirmDialog(this,"game not finished yet","restart",JOptionPane.OK_CANCEL_OPTION)
-             if(dialog==JOptionPane.OK_OPTION){resubscribe()
-             }
-         }else {resubscribe()}
-         }
-     }
-         updateFont(restartButton, 20.0f)
-         return  restartButton
-     }*/
-
 
     private fun resubscribe() {
         gameModel.removeModelChangeListener(this)
@@ -153,25 +133,6 @@ class MineSweeperUI : JFrame("Mine sweeper"), ModelChangeListener {
         updateGameUI()
     }
 
-    private fun updateGameUi() {
-        val state = gameModel.state
-        statusLabel.text = state.textValue
-        for ((i, buttonRow) in buttons.withIndex()) {
-            for ((j, button) in buttonRow.withIndex()) {
-                val cell = gameModel.board[i][j]
-                //button.text = (gameModel.board[i][j] as OpenedCell).number.toString()
-                button.isEnabled = cell.cell == CLOSEDC && state !in GameFinished
-
-                button.foreground = when (cell.cell) {
-                    MINE -> Color.RED
-                    OPENEDC -> Color.WHITE
-                    CLOSEDC -> Color.BLACK
-                    FLAG -> Color.BLUE
-                }
-            }
-        }
-    }
-
     private fun updateGameUI() {
         val state = gameModel.state
         statusLabel.text = state.textValue
@@ -182,22 +143,56 @@ class MineSweeperUI : JFrame("Mine sweeper"), ModelChangeListener {
 
                 when (cell.cell) {
                     MINE -> {
-                        button.apply { imageMine }
+
+                        button.apply {
+                            text = ""
+                            icon = ImageIcon(imageMine)
+                        }
                     }
                     OPENEDC -> {
                         val open: OpenedCell = cell as OpenedCell
                         if (open.number == 0) {
-                              imageBlank
+                            imageBlank
                         } else {
                             button.apply {
-                            text=open.number.toString()
+                                text = open.number.toString()
                             }
                         }
                     }
-                    CLOSEDC -> {}
-                    FLAG -> {button.apply { imageFlag }}
+                    CLOSEDC -> {
+                        button.apply {
+                            text = ""
+                            icon = ImageIcon(imageBlank)
+                        }
+                    }
+                    FLAG -> {
+                        button.apply { icon = ImageIcon(imageFlag) }
+                    }
                 }
 
+            }
+        }
+        if (gameModel.state == State.LOSE) {
+            updateLoseGameUI()
+        }
+    }
+
+    private fun updateLoseGameUI() {
+        val state = gameModel.state
+        statusLabel.text = state.textValue
+        for ((i, buttonRow) in buttons.withIndex()) {
+            for ((j) in buttonRow.withIndex()) {
+
+                if (gameModel.dataBoard[i][j].cell == MINE && gameModel.board[i][j].cell != FLAG) {
+                    buttons[i][j].apply {
+                        icon = ImageIcon(imageMine)
+                    }
+                }
+                if (gameModel.dataBoard[i][j].cell != MINE && gameModel.board[i][j].cell == FLAG) {
+                    buttons[i][j].apply {
+                        icon = ImageIcon(imageWrongFlag)
+                    }
+                }
             }
         }
     }
