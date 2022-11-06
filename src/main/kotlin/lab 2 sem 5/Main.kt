@@ -18,7 +18,7 @@ fun main() {
         println("wrong file name")
     }
 //    var map = HashMap<String, Int>()
-//    for (i in 0..5)
+//    for (i in 0..16)
 //    {
 //        val tmp=readln()
 //        if(map.containsKey(tmp))
@@ -31,8 +31,8 @@ fun main() {
 //            println("s")
 //        }
 //
-//    }
-
+//   }
+//    println("s")
 
 
 }
