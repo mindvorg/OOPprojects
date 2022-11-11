@@ -15,6 +15,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.apache.commons:commons-csv:1.5")
     testImplementation(kotlin("test"))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation("org.apache.logging.log4j:log4j-api:2.17.2")
